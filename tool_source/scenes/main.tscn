@@ -1,0 +1,454 @@
+[gd_scene format=3 uid="uid://c5tgeh76wdyi5"]
+
+[ext_resource type="Script" uid="uid://cj7rs76137uou" path="res://src/main.gd" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://p4hn415y4bpq" path="res://src/camera_controller.gd" id="2_0wfyh"]
+[ext_resource type="SystemFont" uid="uid://broohtscy4cok" path="res://assets/resources/UIFont.tres" id="2_sugp2"]
+[ext_resource type="Texture2D" uid="uid://6hedpd6h3uhl" path="res://assets/img/1920x1080_Metal_1.png" id="2_tefeu"]
+[ext_resource type="Texture2D" uid="uid://c3kgnss0ng885" path="res://assets/img/Gear.png" id="3_jyhfs"]
+[ext_resource type="Shader" uid="uid://q2jj4pj1xk54" path="res://assets/shaders/warm_steel.gdshader" id="3_tbgi4"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o6xl0"]
+texture = ExtResource("2_tefeu")
+modulate_color = Color(0.43134022, 0.43134025, 0.43134025, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0wfyh"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+border_width_top = 2
+border_color = Color(0.29954746, 0.29954746, 0.29954743, 0.7490196)
+corner_detail = 1
+
+[sub_resource type="SystemFont" id="SystemFont_tefeu"]
+font_names = PackedStringArray("Constantia")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sugp2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sugp2"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.30103967, 0.21308336, 0.98466307, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tefeu"]
+shader = ExtResource("3_tbgi4")
+shader_parameter/glow_intensity = 0.6
+shader_parameter/heat_level = 0.7
+shader_parameter/pulse_speed = 1.0
+shader_parameter/pulse_amplitude = 0.18
+
+[sub_resource type="Animation" id="Animation_jyhfs"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_tbgi4"]
+resource_name = "spin"
+length = 8.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.2831855]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tefeu"]
+_data = {
+&"RESET": SubResource("Animation_jyhfs"),
+&"spin": SubResource("Animation_tbgi4")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jyhfs"]
+bg_color = Color(0.50928617, 0.5092862, 0.509286, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="Environment" id="Environment_sugp2"]
+background_mode = 1
+background_color = Color(0.3515629, 0.3515629, 0.35156286, 1)
+tonemap_mode = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_sgp6g"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_sgp6g"]
+width = 256
+height = 256
+
+[node name="Control" type="Control" unique_id=1062100575]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_o5qli")
+
+[node name="Background" type="Panel" parent="." unique_id=136719572]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_o6xl0")
+
+[node name="Pages" type="TabContainer" parent="." unique_id=167306582]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_sugp2")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/tab_selected = SubResource("StyleBoxFlat_0wfyh")
+current_tab = 0
+
+[node name="File Conversion" type="Control" parent="Pages" unique_id=527125838]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="SprocketConversionTool" type="Label" parent="Pages/File Conversion" unique_id=497466847]
+layout_mode = 0
+offset_left = 502.0
+offset_top = 26.0
+offset_right = 1638.0
+offset_bottom = 109.0
+theme_override_colors/font_color = Color(0.7036963, 0.23650944, 0, 1)
+theme_override_fonts/font = SubResource("SystemFont_tefeu")
+theme_override_font_sizes/font_size = 82
+text = "SprocketConversionTool"
+
+[node name="2" type="Label" parent="Pages/File Conversion" unique_id=289582460]
+layout_mode = 0
+offset_left = 1368.0
+offset_top = 27.0
+offset_right = 1408.0
+offset_bottom = 110.0
+theme_override_colors/font_color = Color(0.867578, 0, 0.14310652, 1)
+theme_override_fonts/font = SubResource("SystemFont_tefeu")
+theme_override_font_sizes/font_size = 82
+text = "2"
+
+[node name="MarginContainer" type="MarginContainer" parent="Pages/File Conversion" unique_id=2101095390]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -500.0
+offset_top = 150.0
+offset_right = 500.0
+offset_bottom = 315.0
+grow_horizontal = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pages/File Conversion/MarginContainer" unique_id=358745860]
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="Input" type="HBoxContainer" parent="Pages/File Conversion/MarginContainer/VBoxContainer" unique_id=1180087204]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Pages/File Conversion/MarginContainer/VBoxContainer/Input" unique_id=1122089068]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_sugp2")
+theme_override_font_sizes/font_size = 40
+text = "Input:   "
+
+[node name="LineEdit" type="LineEdit" parent="Pages/File Conversion/MarginContainer/VBoxContainer/Input" unique_id=674974853]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/focus = SubResource("StyleBoxEmpty_sugp2")
+
+[node name="Browse" type="Button" parent="Pages/File Conversion/MarginContainer/VBoxContainer/Input" unique_id=1896143516]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_sugp2")
+theme_override_font_sizes/font_size = 40
+text = "Browse..."
+
+[node name="Output" type="HBoxContainer" parent="Pages/File Conversion/MarginContainer/VBoxContainer" unique_id=1670950634]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Pages/File Conversion/MarginContainer/VBoxContainer/Output" unique_id=90128629]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_sugp2")
+theme_override_font_sizes/font_size = 40
+text = "Output:"
+
+[node name="LineEdit" type="LineEdit" parent="Pages/File Conversion/MarginContainer/VBoxContainer/Output" unique_id=693976095]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/focus = SubResource("StyleBoxEmpty_sugp2")
+editable = false
+
+[node name="HSeparator" type="HSeparator" parent="Pages/File Conversion/MarginContainer/VBoxContainer" unique_id=193031604]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="Convert" type="Button" parent="Pages/File Conversion/MarginContainer/VBoxContainer" unique_id=1179613512]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_sugp2")
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = SubResource("StyleBoxFlat_sugp2")
+text = "Download File"
+
+[node name="Panel" type="Panel" parent="Pages/File Conversion" unique_id=1001853625]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 460.0
+offset_top = 486.0
+offset_right = -451.0
+offset_bottom = -117.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pages/File Conversion" unique_id=68734484]
+layout_mode = 0
+offset_left = 467.0
+offset_top = 491.0
+offset_right = 1466.0
+offset_bottom = 958.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Pages/File Conversion/VBoxContainer" unique_id=1412101121]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 26
+text = "How it works:
+- You load the file you want to convert
+
+- The system detects whether its a blueprint or an OBJ file and selects the appropriate export format
+
+- At the same time, it loads a preview where you can also preview a texture on the model
+
+- You press \"Download File\" and it runs the conversion and presents you with a download for the file"
+
+[node name="Gear" type="Sprite2D" parent="Pages/File Conversion" unique_id=147978812]
+material = SubResource("ShaderMaterial_tefeu")
+position = Vector2(387, 546)
+texture = ExtResource("3_jyhfs")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pages/File Conversion/Gear" unique_id=337801922]
+libraries/ = SubResource("AnimationLibrary_tefeu")
+speed_scale = 0.5
+
+[node name="Preview" type="Control" parent="Pages" unique_id=776887472]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="HSplitContainer" type="HSplitContainer" parent="Pages/Preview" unique_id=948978072]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/split_bar_background = SubResource("StyleBoxFlat_jyhfs")
+split_offsets = PackedInt32Array(1400)
+drag_area_margin_begin = 300
+drag_area_margin_end = 300
+split_offset = 1400
+
+[node name="LeftPanel" type="Control" parent="Pages/Preview/HSplitContainer" unique_id=1437773748]
+layout_mode = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Pages/Preview/HSplitContainer/LeftPanel" unique_id=1398058538]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Pages/Preview/HSplitContainer/LeftPanel/SubViewportContainer" unique_id=1334638868]
+handle_input_locally = false
+size = Vector2i(1400, 1031)
+render_target_update_mode = 0
+
+[node name="World" type="Node3D" parent="Pages/Preview/HSplitContainer/LeftPanel/SubViewportContainer/SubViewport" unique_id=10032035]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Pages/Preview/HSplitContainer/LeftPanel/SubViewportContainer/SubViewport/World" unique_id=508926142]
+environment = SubResource("Environment_sugp2")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Pages/Preview/HSplitContainer/LeftPanel/SubViewportContainer/SubViewport/World" unique_id=83961003]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+light_energy = 0.6
+
+[node name="Camera3D" type="Camera3D" parent="Pages/Preview/HSplitContainer/LeftPanel/SubViewportContainer/SubViewport/World" unique_id=1243068125]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0010061264, -0.0051174164, 1.4366367)
+script = ExtResource("2_0wfyh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pages/Preview/HSplitContainer/LeftPanel/SubViewportContainer/SubViewport/World" unique_id=1473091654]
+mesh = SubResource("BoxMesh_sgp6g")
+
+[node name="RightPanel" type="Control" parent="Pages/Preview/HSplitContainer" unique_id=302427795]
+custom_minimum_size = Vector2(275, 0)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Pages/Preview/HSplitContainer/RightPanel" unique_id=583548907]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VSplitContainer" type="VSplitContainer" parent="Pages/Preview/HSplitContainer/RightPanel/MarginContainer" unique_id=1049140563]
+layout_mode = 2
+
+[node name="Upper" type="VBoxContainer" parent="Pages/Preview/HSplitContainer/RightPanel/MarginContainer/VSplitContainer" unique_id=1938782315]
+layout_mode = 2
+
+[node name="ModelLoad" type="HBoxContainer" parent="Pages/Preview/HSplitContainer/RightPanel/MarginContainer/VSplitContainer/Upper" unique_id=636597459]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Pages/Preview/HSplitContainer/RightPanel/MarginContainer/VSplitContainer/Upper/ModelLoad" unique_id=840614287]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_sugp2")
+text = "Model   "
+
+[node name="LineEdit" type="LineEdit" parent="Pages/Preview/HSplitContainer/RightPanel/MarginContainer/VSplitContainer/Upper/ModelLoad" unique_id=1268168503]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Load" type="Button" parent="Pages/Preview/HSplitContainer/RightPanel/MarginContainer/VSplitContainer/Upper/ModelLoad" unique_id=248368251]
+layout_mode = 2
+text = "Load"
+
+[node name="TextureLoad" type="HBoxContainer" parent="Pages/Preview/HSplitContainer/RightPanel/MarginContainer/VSplitContainer/Upper" unique_id=290135356]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Pages/Preview/HSplitContainer/RightPanel/MarginContainer/VSplitContainer/Upper/TextureLoad" unique_id=1614996262]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_sugp2")
+text = "Texture"
+
+[node name="LineEdit" type="LineEdit" parent="Pages/Preview/HSplitContainer/RightPanel/MarginContainer/VSplitContainer/Upper/TextureLoad" unique_id=293758573]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Load" type="Button" parent="Pages/Preview/HSplitContainer/RightPanel/MarginContainer/VSplitContainer/Upper/TextureLoad" unique_id=957601179]
+layout_mode = 2
+text = "Load"
+
+[node name="TexturePreview" type="TextureRect" parent="Pages/Preview/HSplitContainer/RightPanel/MarginContainer/VSplitContainer/Upper" unique_id=104808531]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("NoiseTexture2D_sgp6g")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="ExportBar" type="HBoxContainer" parent="Pages/Preview/HSplitContainer/RightPanel/MarginContainer/VSplitContainer/Upper" unique_id=1161504326]
+visible = false
+layout_mode = 2
+alignment = 1
+
+[node name="Export" type="Button" parent="Pages/Preview/HSplitContainer/RightPanel/MarginContainer/VSplitContainer/Upper/ExportBar" unique_id=481454096]
+layout_mode = 2
+text = "Export Part"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pages/Preview/HSplitContainer/RightPanel/MarginContainer/VSplitContainer" unique_id=2026674717]
+layout_mode = 2
+
+[node name="Changes" type="Control" parent="Pages" unique_id=1425720572]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Pages/Changes" unique_id=1523202580]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pages/Changes/ScrollContainer" unique_id=512498052]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="2_26_26" type="VBoxContainer" parent="Pages/Changes/ScrollContainer/VBoxContainer" unique_id=1639057551]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+alignment = 1
+
+[node name="Label" type="Label" parent="Pages/Changes/ScrollContainer/VBoxContainer/2_26_26" unique_id=322263894]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.73150903, 0.3796619, 0.18134731, 1)
+theme_override_fonts/font = ExtResource("2_sugp2")
+theme_override_font_sizes/font_size = 50
+text = "2/26/2026"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Pages/Changes/ScrollContainer/VBoxContainer/2_26_26" unique_id=1504660911]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_sugp2")
+theme_override_font_sizes/font_size = 19
+text = "- Implemented OBJ -> Blueprint and Blueprint -> OBJ Conversion
+- Added proper UV/Normals Generation to the Preview/OBJ files"
+
+[node name="ChangeTemplate" type="VBoxContainer" parent="Pages/Changes" unique_id=322208545]
+visible = false
+layout_mode = 0
+size_flags_horizontal = 6
+size_flags_vertical = 6
+alignment = 1
+
+[node name="Label" type="Label" parent="Pages/Changes/ChangeTemplate" unique_id=887629538]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.73150903, 0.3796619, 0.18134731, 1)
+theme_override_fonts/font = ExtResource("2_sugp2")
+theme_override_font_sizes/font_size = 50
+text = "Title"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Pages/Changes/ChangeTemplate" unique_id=2053655577]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_sugp2")
+theme_override_font_sizes/font_size = 19
+text = "- Changes go here
+- Even more here
+- Some more cool changes here"
