@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SprocketSmith</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #0e1117;
+            --surface: #161b22;
+            --border: #30363d;
+            --text: #e6edf3;
+            --text-dim: #7d8590;
+            --accent: #d4915a;
+            --accent-glow: rgba(212, 145, 90, 0.15);
+        }
+
+        body {
+            font-family: 'Chakra Petch', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* subtle grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(212, 145, 90, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212, 145, 90, 0.03) 1px, transparent 1px);
+            background-size: 48px 48px;
+            pointer-events: none;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2rem;
+            max-width: 640px;
+            animation: fadeUp 0.8s ease-out;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo-mark {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+        }
+
+        h1 span {
+            color: var(--accent);
+        }
+
+        .tagline {
+            font-size: 1.05rem;
+            color: var(--text-dim);
+            font-weight: 400;
+            margin-bottom: 2.5rem;
+            line-height: 1.5;
+        }
+
+        .launch-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: var(--accent);
+            color: var(--bg);
+            font-family: 'Chakra Petch', sans-serif;
+            font-weight: 700;
+            font-size: 1.05rem;
+            letter-spacing: 0.04em;
+            text-decoration: none;
+            padding: 0.9rem 2.4rem;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .launch-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px var(--accent-glow);
+        }
+
+        .launch-btn:active {
+            transform: translateY(0);
+        }
+
+        .launch-btn svg {
+            width: 18px;
+            height: 18px;
+            transition: transform 0.2s ease;
+        }
+
+        .launch-btn:hover svg {
+            transform: translateX(3px);
+        }
+
+        .status {
+            margin-top: 2rem;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            letter-spacing: 0.05em;
+        }
+
+        .status .dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: #3fb950;
+            border-radius: 50%;
+            margin-right: 6px;
+            vertical-align: middle;
+            box-shadow: 0 0 6px rgba(63, 185, 80, 0.4);
+        }
+
+        .divider {
+            width: 48px;
+            height: 1px;
+            background: var(--border);
+            margin: 2rem auto;
+        }
+
+        .links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .links a {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            text-decoration: none;
+            letter-spacing: 0.04em;
+            transition: color 0.15s;
+        }
+
+        .links a:hover {
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-mark">///</div>
+        <h1>Sprocket<span>Smith</span></h1>
+        <p class="tagline">Model viewer, converter, and editor for Sprocket.</p>
+
+        <a href="./tool/" class="launch-btn">
+            Launch Tool
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+        </a>
+
+        <div class="status"><span class="dot"></span>v0.1 — Web Test</div>
+
+        <div class="divider"></div>
+
+        <div class="links">
+            <a href="https://github.com/RiPCipher/SprocketSmith">GitHub</a>
+            <a href="https://github.com/RiPCipher/SprocketSmith/issues">Report Issue</a>
+        </div>
+    </div>
+</body>
+</html>
