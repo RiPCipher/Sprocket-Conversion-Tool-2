@@ -14,3 +14,4 @@
 
 - Ability to take a paint url and preview it on your object prior to bringing it into the game (TODO)
 - Wireframe/Mixed view mode(s) (TODO)
+- Rework Conversion Tab UI to be properly anchored to fit different sized browsers (TODO)

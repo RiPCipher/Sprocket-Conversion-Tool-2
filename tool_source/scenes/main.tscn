@@ -135,23 +135,22 @@ current_tab = 0
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="SprocketConversionTool" type="Label" parent="Pages/File Conversion" unique_id=497466847]
+[node name="HBoxContainer" type="HBoxContainer" parent="Pages/File Conversion" unique_id=1816441838]
 layout_mode = 0
-offset_left = 502.0
-offset_top = 26.0
-offset_right = 1638.0
-offset_bottom = 109.0
+offset_left = 512.0
+offset_top = 32.0
+offset_right = 1421.0
+offset_bottom = 115.0
+
+[node name="SprocketConversionTool" type="Label" parent="Pages/File Conversion/HBoxContainer" unique_id=497466847]
+layout_mode = 2
 theme_override_colors/font_color = Color(0.7036963, 0.23650944, 0, 1)
 theme_override_fonts/font = SubResource("SystemFont_tefeu")
 theme_override_font_sizes/font_size = 82
 text = "SprocketConversionTool"
 
-[node name="2" type="Label" parent="Pages/File Conversion" unique_id=289582460]
-layout_mode = 0
-offset_left = 1368.0
-offset_top = 27.0
-offset_right = 1408.0
-offset_bottom = 110.0
+[node name="2" type="Label" parent="Pages/File Conversion/HBoxContainer" unique_id=289582460]
+layout_mode = 2
 theme_override_colors/font_color = Color(0.867578, 0, 0.14310652, 1)
 theme_override_fonts/font = SubResource("SystemFont_tefeu")
 theme_override_font_sizes/font_size = 82
@@ -228,7 +227,7 @@ anchor_bottom = 1.0
 offset_left = 460.0
 offset_top = 486.0
 offset_right = -451.0
-offset_bottom = -117.0
+offset_bottom = -3.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -294,7 +293,7 @@ stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="Pages/Preview/HSplitContainer/LeftPanel/SubViewportContainer" unique_id=1334638868]
 handle_input_locally = false
-size = Vector2i(1400, 1031)
+size = Vector2i(2, 2)
 render_target_update_mode = 0
 
 [node name="World" type="Node3D" parent="Pages/Preview/HSplitContainer/LeftPanel/SubViewportContainer/SubViewport" unique_id=10032035]
