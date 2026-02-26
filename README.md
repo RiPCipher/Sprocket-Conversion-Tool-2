@@ -1,6 +1,6 @@
 # SprocketConversionTool2
-An Online 3D model conversion and preview tool for Sprocket:Tank Design
-Currently functional as of Sprocket 0.2.5
+- An Online 3D model conversion and preview tool for Sprocket:Tank Design
+- Currently functional as of Sprocket 0.2.5
 
 ### Features
 - Convert OBJ/Blueprint files between the formats and preview models
@@ -12,5 +12,5 @@ Currently functional as of Sprocket 0.2.5
 
 - OBJ to Blueprint / Blueprint to OBJ conversion (Done but minor issues are expected)
 
-- Ability to take a paint url and apply it to your object prior to bringing it into the game (TODO)
+- Ability to take a paint url and preview it on your object prior to bringing it into the game (TODO)
 - Wireframe/Mixed view mode(s) (TODO)
