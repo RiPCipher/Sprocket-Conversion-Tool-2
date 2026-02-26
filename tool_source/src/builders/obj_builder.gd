@@ -64,10 +64,15 @@ static func build(md: MeshData, name_override: String = "") -> String:
 	if has_existing_normals and has_existing_uvs:
 		for fi in range(md.faces.size()):
 			var face := md.faces[fi]
+			var face_verts := face
+			if md.source_format == "blueprint":
+				face_verts = PackedInt32Array()
+				for j in range(face.size() - 1, -1, -1):
+					face_verts.append(face[j])
 			var tokens: PackedStringArray = PackedStringArray()
 			tokens.append("f")
-			for ci in range(face.size()):
-				var v_obj := face[ci] + 1
+			for ci in range(face_verts.size()):
+				var v_obj := face_verts[ci] + 1
 				var uv_obj := md.face_uv_indices[fi][ci] + 1
 				var n_obj := md.face_normal_indices[fi][ci] + 1
 				tokens.append("%d/%d/%d" % [v_obj, uv_obj, n_obj])
@@ -76,11 +81,16 @@ static func build(md: MeshData, name_override: String = "") -> String:
 	elif has_existing_uvs:
 		for fi in range(md.faces.size()):
 			var face := md.faces[fi]
+			var face_verts := face
+			if md.source_format == "blueprint":
+				face_verts = PackedInt32Array()
+				for j in range(face.size() - 1, -1, -1):
+					face_verts.append(face[j])
 			var tokens: PackedStringArray = PackedStringArray()
 			tokens.append("f")
 			var n_obj := fi + 1
-			for ci in range(face.size()):
-				var v_obj := face[ci] + 1
+			for ci in range(face_verts.size()):
+				var v_obj := face_verts[ci] + 1
 				var uv_obj := md.face_uv_indices[fi][ci] + 1
 				tokens.append("%d/%d/%d" % [v_obj, uv_obj, n_obj])
 			lines.append(" ".join(tokens))
@@ -89,10 +99,15 @@ static func build(md: MeshData, name_override: String = "") -> String:
 		var uv_counter := 1
 		for fi in range(md.faces.size()):
 			var face := md.faces[fi]
+			var face_verts := face
+			if md.source_format == "blueprint":
+				face_verts = PackedInt32Array()
+				for j in range(face.size() - 1, -1, -1):
+					face_verts.append(face[j])
 			var tokens: PackedStringArray = PackedStringArray()
 			tokens.append("f")
-			for ci in range(face.size()):
-				var v_obj := face[ci] + 1
+			for ci in range(face_verts.size()):
+				var v_obj := face_verts[ci] + 1
 				var n_obj := md.face_normal_indices[fi][ci] + 1
 				tokens.append("%d/%d/%d" % [v_obj, uv_counter, n_obj])
 				uv_counter += 1
@@ -102,11 +117,16 @@ static func build(md: MeshData, name_override: String = "") -> String:
 		var uv_counter := 1
 		for fi in range(md.faces.size()):
 			var face := md.faces[fi]
+			var face_verts := face
+			if md.source_format == "blueprint":
+				face_verts = PackedInt32Array()
+				for j in range(face.size() - 1, -1, -1):
+					face_verts.append(face[j])
 			var tokens: PackedStringArray = PackedStringArray()
 			tokens.append("f")
 			var n_obj := fi + 1
-			for ci in range(face.size()):
-				var v_obj := face[ci] + 1
+			for ci in range(face_verts.size()):
+				var v_obj := face_verts[ci] + 1
 				tokens.append("%d/%d/%d" % [v_obj, uv_counter, n_obj])
 				uv_counter += 1
 			lines.append(" ".join(tokens))
