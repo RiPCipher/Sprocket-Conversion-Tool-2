@@ -15,6 +15,7 @@ var _is_web: bool = false
 # prevent garbage collection of JS callbacks
 var _model_callback: JavaScriptObject
 var _texture_callback: JavaScriptObject
+var _url_error_callback: JavaScriptObject
 
 
 func _ready() -> void:
@@ -46,6 +47,15 @@ func request_texture() -> void:
 			_on_desktop_texture_selected
 		)
 
+func request_texture_from_url(url: String) -> void:
+	if _is_web:
+		JavaScriptBridge.eval(
+			"window._godotFetchImageUrl(`%s`, '_godot_texture_cb', '_godot_url_error_cb');" % url,
+			true
+		)
+	else:
+		load_error.emit("URL texture loading is only supported in the web version.")
+
 func save_text(filename: String, content: String) -> void:
 	if _is_web:
 		_save_web_text(filename, content)
@@ -60,10 +70,12 @@ func save_text(filename: String, content: String) -> void:
 func _setup_web() -> void:
 	_model_callback = JavaScriptBridge.create_callback(_on_web_model_result)
 	_texture_callback = JavaScriptBridge.create_callback(_on_web_texture_result)
+	_url_error_callback = JavaScriptBridge.create_callback(_on_web_url_error)
 
 	var window := JavaScriptBridge.get_interface("window")
 	window["_godot_model_cb"] = _model_callback
 	window["_godot_texture_cb"] = _texture_callback
+	window["_godot_url_error_cb"] = _url_error_callback
 
 	JavaScriptBridge.eval("""
 		window._godotPickFile = function(accept, callbackKey) {
@@ -114,6 +126,29 @@ func _setup_web() -> void:
 			input.click();
 		};
 
+		window._godotFetchImageUrl = function(url, callbackKey, errorKey) {
+			fetch(url)
+				.then(function(response) {
+					if (!response.ok) {
+						throw new Error('HTTP ' + response.status);
+					}
+					return response.blob();
+				})
+				.then(function(blob) {
+					var reader = new FileReader();
+					reader.onload = function(e) {
+						var filename = url.split('/').pop().split('?')[0] || 'texture.png';
+						var cb = window[callbackKey];
+						if (cb) cb(filename, e.target.result);
+					};
+					reader.readAsDataURL(blob);
+				})
+				.catch(function(err) {
+					var errCb = window[errorKey];
+					if (errCb) errCb(err.toString());
+				});
+		};
+
 		window._godotSaveFile = function(filename, content) {
 			var blob = new Blob([content], { type: 'application/octet-stream' });
 			var url = URL.createObjectURL(blob);
@@ -144,7 +179,6 @@ func _open_web_image_picker(accept: String, callback_key: String) -> void:
 
 
 func _save_web_text(filename: String, content: String) -> void:
-	# Escape backticks and backslashes in content for JS template literal
 	var escaped := content.replace("\\", "\\\\").replace("`", "\\`").replace("$", "\\$")
 	JavaScriptBridge.eval(
 		"window._godotSaveFile(`%s`, `%s`);" % [filename, escaped],
@@ -170,6 +204,11 @@ func _on_web_texture_result(args: Array) -> void:
 	if image == null:
 		return
 	texture_loaded.emit(filename, image)
+
+
+func _on_web_url_error(args: Array) -> void:
+	var error_msg := str(args[0]) if args.size() > 0 else "Unknown error"
+	load_error.emit("Failed to fetch URL: " + error_msg)
 
 
 func _decode_data_url(filename: String, data_url: String) -> Image:
@@ -198,8 +237,12 @@ func _decode_data_url(filename: String, data_url: String) -> Image:
 		"bmp":
 			err = image.load_bmp_from_buffer(bytes)
 		_:
-			load_error.emit("Unsupported image format: " + ext)
-			return null
+			# Unknown extension — try each format in order
+			err = image.load_png_from_buffer(bytes)
+			if err != OK:
+				err = image.load_jpg_from_buffer(bytes)
+			if err != OK:
+				err = image.load_webp_from_buffer(bytes)
 
 	if err != OK:
 		load_error.emit("Failed to parse image: " + filename)

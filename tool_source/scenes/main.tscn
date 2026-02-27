@@ -35,7 +35,6 @@ content_margin_top = 4.0
 content_margin_right = 4.0
 content_margin_bottom = 4.0
 bg_color = Color(0.30103967, 0.21308336, 0.98466307, 0.6)
-skew = Vector2(0.165, 0)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
@@ -257,7 +256,7 @@ text = "How it works:
 
 [node name="Gear" type="Sprite2D" parent="Pages/File Conversion" unique_id=147978812]
 material = SubResource("ShaderMaterial_tefeu")
-position = Vector2(345, 543)
+position = Vector2(78, 76)
 texture = ExtResource("3_jyhfs")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Pages/File Conversion/Gear" unique_id=337801922]
@@ -315,6 +314,9 @@ script = ExtResource("2_0wfyh")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Pages/Preview/HSplitContainer/LeftPanel/SubViewportContainer/SubViewport/World" unique_id=1473091654]
 mesh = SubResource("BoxMesh_sgp6g")
+
+[node name="Control" type="Control" parent="Pages/Preview/HSplitContainer/LeftPanel/SubViewportContainer" unique_id=754812499]
+layout_mode = 2
 
 [node name="RightPanel" type="Control" parent="Pages/Preview/HSplitContainer" unique_id=302427795]
 custom_minimum_size = Vector2(275, 0)
@@ -412,6 +414,27 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
+
+[node name="2_27_26" type="VBoxContainer" parent="Pages/Changes/ScrollContainer/VBoxContainer" unique_id=666555047]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+alignment = 1
+
+[node name="Label" type="Label" parent="Pages/Changes/ScrollContainer/VBoxContainer/2_27_26" unique_id=1309036141]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.73150903, 0.3796619, 0.18134731, 1)
+theme_override_fonts/font = ExtResource("6_ya4ey")
+theme_override_font_sizes/font_size = 50
+text = "2/27/2026"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Pages/Changes/ScrollContainer/VBoxContainer/2_27_26" unique_id=2142791692]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_choun")
+theme_override_font_sizes/font_size = 19
+text = "- More UI Changes
+- Added Texture Loading Via URL (in Testing)"
 
 [node name="2_26_26 #2" type="VBoxContainer" parent="Pages/Changes/ScrollContainer/VBoxContainer" unique_id=61417345]
 layout_mode = 2

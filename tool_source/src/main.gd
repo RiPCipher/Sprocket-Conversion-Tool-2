@@ -87,15 +87,24 @@ func _configure_ui() -> void:
 
 	convert_btn.disabled = true
 
-	preview_texture_line_edit.editable = false
-	preview_texture_line_edit.placeholder_text = "No texture loaded"
+	preview_texture_line_edit.editable = true
+	preview_texture_line_edit.placeholder_text = "Paste URL or click Load"
 
 
 # ================ #
 # Button handlers  #
 # ================ #
 func _on_preview_texture_load_pressed() -> void:
-	file_bridge.request_texture()
+	var text := preview_texture_line_edit.text.strip_edges()
+
+	if text.begins_with("http://") or text.begins_with("https://"):
+		# Load from URL
+		preview_texture_line_edit.text = "Loading..."
+		preview_texture_line_edit.editable = false
+		file_bridge.request_texture_from_url(text)
+	else:
+		preview_texture_line_edit.text = ""
+		file_bridge.request_texture()
 
 
 func _on_preview_load_pressed() -> void:
@@ -138,7 +147,13 @@ func _on_convert_pressed() -> void:
 func _on_texture_loaded(filename: String, image: Image) -> void:
 	_loaded_texture = ImageTexture.create_from_image(image)
 	texture_preview_rect.texture = _loaded_texture
-	preview_texture_line_edit.text = filename
+
+	if preview_texture_line_edit.text == "Loading...":
+		preview_texture_line_edit.editable = true
+	else:
+		preview_texture_line_edit.text = filename
+		preview_texture_line_edit.editable = true
+
 	_apply_texture_to_mesh()
 
 
@@ -184,9 +199,9 @@ func _parse(content: String, ext: String) -> MeshData:
 func _update_output_label(input_ext: String) -> void:
 	match input_ext:
 		"obj":
-			output_line_edit.text = "→ .blueprint"
+			output_line_edit.text = "-> .blueprint"
 		"blueprint":
-			output_line_edit.text = "→ .obj"
+			output_line_edit.text = "-> .obj"
 		_:
 			output_line_edit.text = "Unknown"
 
@@ -244,6 +259,13 @@ func _on_save_error(message: String) -> void:
 
 func _on_load_error(message: String) -> void:
 	push_warning("FileBridge error: " + message)
+
+	# If a URL load failed, restore the texture field to editable
+	if preview_texture_line_edit.text == "Loading...":
+		preview_texture_line_edit.text = ""
+		preview_texture_line_edit.editable = true
+		preview_texture_line_edit.placeholder_text = "Failed to load — try again"
+
 	match _pending_target:
 		LoadTarget.PREVIEW:
 			preview_model_line_edit.text = "Error: " + message
