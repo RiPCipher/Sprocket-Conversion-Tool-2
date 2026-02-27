@@ -1,5 +1,8 @@
 extends Control
 
+
+const DEFAULT_MATERIAL := preload("res://assets/resources/default_material.tres")
+
 # ===================== #
 # Preview page nodes    #
 # ===================== #
@@ -14,10 +17,10 @@ extends Control
 # ========================== #
 # File Conversion page nodes #
 # ========================== #
-@onready var input_line_edit: LineEdit = $"Pages/File Conversion/MarginContainer/VBoxContainer/Input/LineEdit"
-@onready var input_browse_btn: Button = $"Pages/File Conversion/MarginContainer/VBoxContainer/Input/Browse"
-@onready var output_line_edit: LineEdit = $"Pages/File Conversion/MarginContainer/VBoxContainer/Output/LineEdit"
-@onready var convert_btn: Button = $"Pages/File Conversion/MarginContainer/VBoxContainer/Convert"
+@onready var input_line_edit: LineEdit = $"Pages/File Conversion/VBoxContainer2/MarginContainer/VBoxContainer/Input/LineEdit"
+@onready var input_browse_btn: Button = $"Pages/File Conversion/VBoxContainer2/MarginContainer/VBoxContainer/Input/Browse"
+@onready var output_line_edit: LineEdit = $"Pages/File Conversion/VBoxContainer2/MarginContainer/VBoxContainer/Output/LineEdit"
+@onready var convert_btn: Button = $"Pages/File Conversion/VBoxContainer2/MarginContainer/VBoxContainer/Convert"
 
 
 # ============== #
@@ -32,10 +35,9 @@ extends Control
 var file_bridge: FileBridge
 var _loaded_mesh: MeshInstance3D = null
 var _loaded_texture: ImageTexture = null
-
-
 var _current_mesh_data: MeshData = null
 var _conversion_filename: String = ""
+var _mesh_material: StandardMaterial3D = null
 
 enum LoadTarget { PREVIEW, CONVERSION }
 var _pending_target: LoadTarget = LoadTarget.PREVIEW
@@ -46,13 +48,14 @@ func _ready() -> void:
 	_connect_signals()
 	_configure_ui()
 	
+	_mesh_material = DEFAULT_MATERIAL.duplicate()
+	
 	gear_animation_player.play("spin")
 
 
 # ============ #
 # Setup        #
 # ============ #
-
 func _setup_file_bridge() -> void:
 	file_bridge = FileBridge.new()
 	file_bridge.name = "FileBridge"
@@ -216,16 +219,12 @@ func _display_mesh(mesh: ArrayMesh) -> void:
 
 	_apply_texture_to_mesh()
 
-
 func _apply_texture_to_mesh() -> void:
-	if _loaded_mesh == null or _loaded_texture == null:
+	if _loaded_mesh == null:
 		return
-	var mat := StandardMaterial3D.new()
-	mat.uv1_triplanar = true  # temp fix for no UVs, add proper UV parsing
-	mat.cull_mode = BaseMaterial3D.CULL_DISABLED # Make new base material that swaps albedo textures instead
-	mat.albedo_texture = _loaded_texture
-	_loaded_mesh.set_surface_override_material(0, mat)
-
+	_loaded_mesh.set_surface_override_material(0, _mesh_material)
+	if _loaded_texture != null:
+		_mesh_material.albedo_texture = _loaded_texture
 
 # ================ #
 # Save callbacks   #

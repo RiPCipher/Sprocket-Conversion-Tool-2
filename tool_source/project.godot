@@ -11,8 +11,8 @@ config_version=5
 [application]
 
 config/name="Sprocket Conversion Tool 2"
-config/version="0.5"
-run/main_scene="uid://c5tgeh76wdyi5"
+config/version="0.5.1"
+run/main_scene="uid://dvch4kk54qyms"
 config/features=PackedStringArray("4.6", "Forward Plus")
 boot_splash/image="uid://dvofnxxhxx8g0"
 config/icon="res://icon.svg"

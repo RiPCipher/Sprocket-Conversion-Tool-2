@@ -2,14 +2,20 @@
 
 [ext_resource type="Script" uid="uid://cj7rs76137uou" path="res://src/main.gd" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://p4hn415y4bpq" path="res://src/camera_controller.gd" id="2_0wfyh"]
-[ext_resource type="SystemFont" uid="uid://broohtscy4cok" path="res://assets/resources/UIFont.tres" id="2_sugp2"]
 [ext_resource type="Texture2D" uid="uid://6hedpd6h3uhl" path="res://assets/img/1920x1080_Metal_1.png" id="2_tefeu"]
+[ext_resource type="FontFile" uid="uid://bmmq6sl3055pa" path="res://assets/fonts/Montserrat/used/Montserrat-BoldItalic.ttf" id="3_choun"]
 [ext_resource type="Texture2D" uid="uid://c3kgnss0ng885" path="res://assets/img/Gear.png" id="3_jyhfs"]
 [ext_resource type="Shader" uid="uid://q2jj4pj1xk54" path="res://assets/shaders/warm_steel.gdshader" id="3_tbgi4"]
+[ext_resource type="FontFile" uid="uid://cr1ivfpvst5hm" path="res://assets/fonts/Montserrat/used/Montserrat-Regular.ttf" id="4_85g3d"]
+[ext_resource type="FontFile" uid="uid://d3wwuhku3prlq" path="res://assets/fonts/Montserrat/used/Montserrat-SemiBoldItalic.ttf" id="5_choun"]
+[ext_resource type="FontFile" uid="uid://k0gnjusxsdt8" path="res://assets/fonts/Montserrat/used/Montserrat-Bold.ttf" id="6_choun"]
+[ext_resource type="Texture2D" uid="uid://vqhwv6cmktgm" path="res://assets/ui/search.png" id="6_eb6dy"]
+[ext_resource type="FontFile" uid="uid://de0u3rwjnq8en" path="res://assets/fonts/Montserrat/used/Montserrat-Italic.ttf" id="6_ya4ey"]
+[ext_resource type="Material" uid="uid://dkf0rru4a0g1a" path="res://assets/resources/default_material.tres" id="11_eb6dy"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o6xl0"]
 texture = ExtResource("2_tefeu")
-modulate_color = Color(0.43134022, 0.43134025, 0.43134025, 1)
+modulate_color = Color(0.27022174, 0.27022198, 0.27022186, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0wfyh"]
 content_margin_left = 10.0
@@ -21,9 +27,6 @@ border_width_top = 2
 border_color = Color(0.29954746, 0.29954746, 0.29954743, 0.7490196)
 corner_detail = 1
 
-[sub_resource type="SystemFont" id="SystemFont_tefeu"]
-font_names = PackedStringArray("Constantia")
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sugp2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sugp2"]
@@ -32,6 +35,7 @@ content_margin_top = 4.0
 content_margin_right = 4.0
 content_margin_bottom = 4.0
 bg_color = Color(0.30103967, 0.21308336, 0.98466307, 0.6)
+skew = Vector2(0.165, 0)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
@@ -96,6 +100,7 @@ background_color = Color(0.3515629, 0.3515629, 0.35156286, 1)
 tonemap_mode = 2
 
 [sub_resource type="BoxMesh" id="BoxMesh_sgp6g"]
+material = ExtResource("11_eb6dy")
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_sgp6g"]
 width = 256
@@ -126,121 +131,120 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("2_sugp2")
+theme_override_fonts/font = ExtResource("3_choun")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/tab_selected = SubResource("StyleBoxFlat_0wfyh")
-current_tab = 0
+current_tab = 2
 
 [node name="File Conversion" type="Control" parent="Pages" unique_id=527125838]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Pages/File Conversion" unique_id=1816441838]
-layout_mode = 0
-offset_left = 512.0
-offset_top = 32.0
-offset_right = 1421.0
-offset_bottom = 115.0
+[node name="VBoxContainer2" type="VBoxContainer" parent="Pages/File Conversion" unique_id=248854836]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
 
-[node name="SprocketConversionTool" type="Label" parent="Pages/File Conversion/HBoxContainer" unique_id=497466847]
+[node name="HBoxContainer" type="HBoxContainer" parent="Pages/File Conversion/VBoxContainer2" unique_id=1816441838]
+layout_mode = 2
+alignment = 1
+
+[node name="SprocketConversionTool" type="Label" parent="Pages/File Conversion/VBoxContainer2/HBoxContainer" unique_id=497466847]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.7036963, 0.23650944, 0, 1)
-theme_override_fonts/font = SubResource("SystemFont_tefeu")
+theme_override_fonts/font = ExtResource("4_85g3d")
 theme_override_font_sizes/font_size = 82
 text = "SprocketConversionTool"
 
-[node name="2" type="Label" parent="Pages/File Conversion/HBoxContainer" unique_id=289582460]
+[node name="2" type="Label" parent="Pages/File Conversion/VBoxContainer2/HBoxContainer" unique_id=289582460]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.867578, 0, 0.14310652, 1)
-theme_override_fonts/font = SubResource("SystemFont_tefeu")
+theme_override_fonts/font = ExtResource("5_choun")
 theme_override_font_sizes/font_size = 82
 text = "2"
 
-[node name="MarginContainer" type="MarginContainer" parent="Pages/File Conversion" unique_id=2101095390]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -500.0
-offset_top = 150.0
-offset_right = 500.0
-offset_bottom = 315.0
-grow_horizontal = 2
+[node name="MarginContainer" type="MarginContainer" parent="Pages/File Conversion/VBoxContainer2" unique_id=2101095390]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Pages/File Conversion/MarginContainer" unique_id=358745860]
+[node name="VBoxContainer" type="VBoxContainer" parent="Pages/File Conversion/VBoxContainer2/MarginContainer" unique_id=358745860]
 layout_mode = 2
 theme_override_constants/separation = 15
 alignment = 1
 
-[node name="Input" type="HBoxContainer" parent="Pages/File Conversion/MarginContainer/VBoxContainer" unique_id=1180087204]
+[node name="Input" type="HBoxContainer" parent="Pages/File Conversion/VBoxContainer2/MarginContainer/VBoxContainer" unique_id=1180087204]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Pages/File Conversion/MarginContainer/VBoxContainer/Input" unique_id=1122089068]
+[node name="Label" type="Label" parent="Pages/File Conversion/VBoxContainer2/MarginContainer/VBoxContainer/Input" unique_id=1122089068]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_sugp2")
+theme_override_fonts/font = ExtResource("4_85g3d")
 theme_override_font_sizes/font_size = 40
 text = "Input:   "
 
-[node name="LineEdit" type="LineEdit" parent="Pages/File Conversion/MarginContainer/VBoxContainer/Input" unique_id=674974853]
+[node name="LineEdit" type="LineEdit" parent="Pages/File Conversion/VBoxContainer2/MarginContainer/VBoxContainer/Input" unique_id=674974853]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/focus = SubResource("StyleBoxEmpty_sugp2")
 
-[node name="Browse" type="Button" parent="Pages/File Conversion/MarginContainer/VBoxContainer/Input" unique_id=1896143516]
+[node name="Browse" type="Button" parent="Pages/File Conversion/VBoxContainer2/MarginContainer/VBoxContainer/Input" unique_id=1896143516]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_sugp2")
+theme_override_colors/icon_normal_color = Color(0.6624531, 0.66245186, 0.6624527, 1)
+theme_override_constants/icon_max_width = 50
+theme_override_fonts/font = ExtResource("4_85g3d")
 theme_override_font_sizes/font_size = 40
-text = "Browse..."
+text = "Browse"
+icon = ExtResource("6_eb6dy")
+icon_alignment = 2
 
-[node name="Output" type="HBoxContainer" parent="Pages/File Conversion/MarginContainer/VBoxContainer" unique_id=1670950634]
+[node name="Output" type="HBoxContainer" parent="Pages/File Conversion/VBoxContainer2/MarginContainer/VBoxContainer" unique_id=1670950634]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Pages/File Conversion/MarginContainer/VBoxContainer/Output" unique_id=90128629]
+[node name="Label" type="Label" parent="Pages/File Conversion/VBoxContainer2/MarginContainer/VBoxContainer/Output" unique_id=90128629]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_sugp2")
+theme_override_fonts/font = ExtResource("4_85g3d")
 theme_override_font_sizes/font_size = 40
 text = "Output:"
 
-[node name="LineEdit" type="LineEdit" parent="Pages/File Conversion/MarginContainer/VBoxContainer/Output" unique_id=693976095]
+[node name="LineEdit" type="LineEdit" parent="Pages/File Conversion/VBoxContainer2/MarginContainer/VBoxContainer/Output" unique_id=693976095]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/focus = SubResource("StyleBoxEmpty_sugp2")
 editable = false
 
-[node name="HSeparator" type="HSeparator" parent="Pages/File Conversion/MarginContainer/VBoxContainer" unique_id=193031604]
+[node name="HSeparator" type="HSeparator" parent="Pages/File Conversion/VBoxContainer2/MarginContainer/VBoxContainer" unique_id=193031604]
 layout_mode = 2
 theme_override_constants/separation = 25
 
-[node name="Convert" type="Button" parent="Pages/File Conversion/MarginContainer/VBoxContainer" unique_id=1179613512]
+[node name="Convert" type="Button" parent="Pages/File Conversion/VBoxContainer2/MarginContainer/VBoxContainer" unique_id=1179613512]
+custom_minimum_size = Vector2(418.51, 0)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource("2_sugp2")
+theme_override_fonts/font = ExtResource("4_85g3d")
 theme_override_font_sizes/font_size = 45
 theme_override_styles/normal = SubResource("StyleBoxFlat_sugp2")
 text = "Download File"
 
-[node name="Panel" type="Panel" parent="Pages/File Conversion" unique_id=1001853625]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 460.0
-offset_top = 486.0
-offset_right = -451.0
-offset_bottom = -3.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Pages/File Conversion" unique_id=68734484]
-layout_mode = 0
-offset_left = 467.0
-offset_top = 491.0
-offset_right = 1466.0
-offset_bottom = 958.0
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Pages/File Conversion/VBoxContainer" unique_id=1412101121]
+[node name="Usage" type="CenterContainer" parent="Pages/File Conversion/VBoxContainer2" unique_id=1971791677]
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="Pages/File Conversion/VBoxContainer2/Usage" unique_id=1001853625]
+custom_minimum_size = Vector2(1100, 425)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Pages/File Conversion/VBoxContainer2/Usage" unique_id=1412101121]
+custom_minimum_size = Vector2(1000, 400.4)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("4_85g3d")
+theme_override_fonts/bold_italics_font = ExtResource("5_choun")
+theme_override_fonts/italics_font = ExtResource("6_ya4ey")
 theme_override_font_sizes/normal_font_size = 26
 text = "How it works:
 - You load the file you want to convert
@@ -253,7 +257,7 @@ text = "How it works:
 
 [node name="Gear" type="Sprite2D" parent="Pages/File Conversion" unique_id=147978812]
 material = SubResource("ShaderMaterial_tefeu")
-position = Vector2(387, 546)
+position = Vector2(345, 543)
 texture = ExtResource("3_jyhfs")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Pages/File Conversion/Gear" unique_id=337801922]
@@ -293,7 +297,7 @@ stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="Pages/Preview/HSplitContainer/LeftPanel/SubViewportContainer" unique_id=1334638868]
 handle_input_locally = false
-size = Vector2i(2, 2)
+size = Vector2i(1400, 1034)
 render_target_update_mode = 0
 
 [node name="World" type="Node3D" parent="Pages/Preview/HSplitContainer/LeftPanel/SubViewportContainer/SubViewport" unique_id=10032035]
@@ -341,7 +345,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="Pages/Preview/HSplitContainer/RightPanel/MarginContainer/VSplitContainer/Upper/ModelLoad" unique_id=840614287]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_sugp2")
+theme_override_fonts/font = ExtResource("4_85g3d")
 text = "Model   "
 
 [node name="LineEdit" type="LineEdit" parent="Pages/Preview/HSplitContainer/RightPanel/MarginContainer/VSplitContainer/Upper/ModelLoad" unique_id=1268168503]
@@ -350,6 +354,7 @@ size_flags_horizontal = 3
 
 [node name="Load" type="Button" parent="Pages/Preview/HSplitContainer/RightPanel/MarginContainer/VSplitContainer/Upper/ModelLoad" unique_id=248368251]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("6_choun")
 text = "Load"
 
 [node name="TextureLoad" type="HBoxContainer" parent="Pages/Preview/HSplitContainer/RightPanel/MarginContainer/VSplitContainer/Upper" unique_id=290135356]
@@ -357,7 +362,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="Pages/Preview/HSplitContainer/RightPanel/MarginContainer/VSplitContainer/Upper/TextureLoad" unique_id=1614996262]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_sugp2")
+theme_override_fonts/font = ExtResource("4_85g3d")
 text = "Texture"
 
 [node name="LineEdit" type="LineEdit" parent="Pages/Preview/HSplitContainer/RightPanel/MarginContainer/VSplitContainer/Upper/TextureLoad" unique_id=293758573]
@@ -366,6 +371,7 @@ size_flags_horizontal = 3
 
 [node name="Load" type="Button" parent="Pages/Preview/HSplitContainer/RightPanel/MarginContainer/VSplitContainer/Upper/TextureLoad" unique_id=957601179]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("6_choun")
 text = "Load"
 
 [node name="TexturePreview" type="TextureRect" parent="Pages/Preview/HSplitContainer/RightPanel/MarginContainer/VSplitContainer/Upper" unique_id=104808531]
@@ -390,7 +396,6 @@ text = "Export Part"
 layout_mode = 2
 
 [node name="Changes" type="Control" parent="Pages" unique_id=1425720572]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
@@ -408,6 +413,28 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
+[node name="2_26_26 #2" type="VBoxContainer" parent="Pages/Changes/ScrollContainer/VBoxContainer" unique_id=61417345]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+alignment = 1
+
+[node name="Label" type="Label" parent="Pages/Changes/ScrollContainer/VBoxContainer/2_26_26 #2" unique_id=905240798]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.73150903, 0.3796619, 0.18134731, 1)
+theme_override_fonts/font = ExtResource("6_ya4ey")
+theme_override_font_sizes/font_size = 50
+text = "2/26/2026 #2"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Pages/Changes/ScrollContainer/VBoxContainer/2_26_26 #2" unique_id=116224760]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_choun")
+theme_override_font_sizes/font_size = 19
+text = "- Added Custom Fonts
+- Implemented an \"Other Helpful Tools\" tab
+- Re-organized File Conversion Tab to be more Anchored"
+
 [node name="2_26_26" type="VBoxContainer" parent="Pages/Changes/ScrollContainer/VBoxContainer" unique_id=1639057551]
 layout_mode = 2
 size_flags_horizontal = 6
@@ -417,14 +444,14 @@ alignment = 1
 [node name="Label" type="Label" parent="Pages/Changes/ScrollContainer/VBoxContainer/2_26_26" unique_id=322263894]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.73150903, 0.3796619, 0.18134731, 1)
-theme_override_fonts/font = ExtResource("2_sugp2")
+theme_override_fonts/font = ExtResource("6_ya4ey")
 theme_override_font_sizes/font_size = 50
 text = "2/26/2026"
 horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="Pages/Changes/ScrollContainer/VBoxContainer/2_26_26" unique_id=1504660911]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_sugp2")
+theme_override_fonts/font = ExtResource("6_choun")
 theme_override_font_sizes/font_size = 19
 text = "- Implemented OBJ -> Blueprint and Blueprint -> OBJ Conversion
 - Added proper UV/Normals Generation to the Preview/OBJ files"
@@ -439,15 +466,126 @@ alignment = 1
 [node name="Label" type="Label" parent="Pages/Changes/ChangeTemplate" unique_id=887629538]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.73150903, 0.3796619, 0.18134731, 1)
-theme_override_fonts/font = ExtResource("2_sugp2")
+theme_override_fonts/font = ExtResource("6_ya4ey")
 theme_override_font_sizes/font_size = 50
 text = "Title"
 horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="Pages/Changes/ChangeTemplate" unique_id=2053655577]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_sugp2")
+theme_override_fonts/font = ExtResource("6_choun")
 theme_override_font_sizes/font_size = 19
 text = "- Changes go here
 - Even more here
 - Some more cool changes here"
+
+[node name="Other Helpful Tools" type="Control" parent="Pages" unique_id=1777108394]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pages/Other Helpful Tools" unique_id=1177873796]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="SprocketTools" type="VBoxContainer" parent="Pages/Other Helpful Tools/VBoxContainer" unique_id=39324661]
+layout_mode = 2
+
+[node name="hbox" type="HBoxContainer" parent="Pages/Other Helpful Tools/VBoxContainer/SprocketTools" unique_id=847165135]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Pages/Other Helpful Tools/VBoxContainer/SprocketTools/hbox" unique_id=1305107328]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.4995181, 0.27488643, 1)
+theme_override_fonts/font = ExtResource("6_choun")
+text = "SprocketTools: "
+
+[node name="LinkButton" type="LinkButton" parent="Pages/Other Helpful Tools/VBoxContainer/SprocketTools/hbox" unique_id=2010562562]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75231415, 0.9089833, 0.99999994, 1)
+theme_override_fonts/font = ExtResource("6_ya4ey")
+text = "https://sprockettools.github.io/"
+uri = "https://sprockettools.github.io/"
+
+[node name="Description" type="Label" parent="Pages/Other Helpful Tools/VBoxContainer/SprocketTools" unique_id=1173853411]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_85g3d")
+text = "- Gear Calculator
+- Guides
+- Decal Catalog
+- Paint Catalog
+- RGB Decal Maker"
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="Pages/Other Helpful Tools/VBoxContainer" unique_id=627127883]
+custom_minimum_size = Vector2(0, 39.98)
+layout_mode = 2
+
+[node name="SPETS" type="VBoxContainer" parent="Pages/Other Helpful Tools/VBoxContainer" unique_id=897197079]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Pages/Other Helpful Tools/VBoxContainer/SPETS" unique_id=1704911211]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Pages/Other Helpful Tools/VBoxContainer/SPETS/HBoxContainer" unique_id=833244695]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.4995181, 0.27488643, 1)
+theme_override_fonts/font = ExtResource("6_choun")
+text = "SPETS: "
+
+[node name="LinkButton" type="LinkButton" parent="Pages/Other Helpful Tools/VBoxContainer/SPETS/HBoxContainer" unique_id=146607961]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75231415, 0.9089833, 0.99999994, 1)
+theme_override_fonts/font = ExtResource("6_ya4ey")
+text = "https://github.com/ArgoreOfficial/SPETS"
+uri = "https://github.com/ArgoreOfficial/SPETS"
+
+[node name="Label2" type="Label" parent="Pages/Other Helpful Tools/VBoxContainer/SPETS" unique_id=1484278084]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_85g3d")
+text = "- File Converison application
+-  Fully Functional as of 0.2.5"
+horizontal_alignment = 1
+
+[node name="Control2" type="Control" parent="Pages/Other Helpful Tools/VBoxContainer" unique_id=801799430]
+custom_minimum_size = Vector2(0, 39.98)
+layout_mode = 2
+
+[node name="SCT1" type="VBoxContainer" parent="Pages/Other Helpful Tools/VBoxContainer" unique_id=1015021287]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Pages/Other Helpful Tools/VBoxContainer/SCT1" unique_id=613130669]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Pages/Other Helpful Tools/VBoxContainer/SCT1/HBoxContainer" unique_id=2132372233]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.4995181, 0.27488643, 1)
+theme_override_fonts/font = ExtResource("6_choun")
+text = "SprocketConversionTool 0.5:"
+
+[node name="LinkButton" type="LinkButton" parent="Pages/Other Helpful Tools/VBoxContainer/SCT1/HBoxContainer" unique_id=1582314902]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75231415, 0.9089833, 0.99999994, 1)
+theme_override_fonts/font = ExtResource("6_ya4ey")
+text = "https://github.com/RiPCipher/Sprocket-Conversion-Tool"
+uri = "https://github.com/RiPCipher/Sprocket-Conversion-Tool"
+
+[node name="Label2" type="Label" parent="Pages/Other Helpful Tools/VBoxContainer/SCT1" unique_id=746034870]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_85g3d")
+text = "- Older File Converison Application
+- Functional as of Sprocket 0.2.5
+- Download Only"
+horizontal_alignment = 1
+
+[node name="Control3" type="Control" parent="Pages/Other Helpful Tools/VBoxContainer" unique_id=1295433706]
+custom_minimum_size = Vector2(0, 39.98)
+layout_mode = 2
