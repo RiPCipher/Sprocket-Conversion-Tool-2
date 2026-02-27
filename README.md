@@ -12,6 +12,6 @@
 
 - OBJ to Blueprint / Blueprint to OBJ conversion (Done but minor issues are expected)
 
-- Ability to take a paint url and preview it on your object prior to bringing it into the game (TODO)
+- Ability to take a paint url and preview it on your object prior to bringing it into the game (Testing)
 - Wireframe/Mixed view mode(s) (TODO)
 - Rework Conversion Tab UI to be properly anchored to fit different sized browsers (WIP)
