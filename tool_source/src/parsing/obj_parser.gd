@@ -9,6 +9,7 @@ static func parse(obj_text: String) -> MeshData:
 	var parsed_faces: Array[PackedInt32Array] = []
 	var parsed_face_normal_indices: Array[PackedInt32Array] = []
 	var parsed_face_uv_indices: Array[PackedInt32Array] = []
+	var parsed_free_edges: Array[PackedInt32Array] = []
 
 	var has_normals := false
 	var has_uvs := false
@@ -16,6 +17,7 @@ static func parse(obj_text: String) -> MeshData:
 	var tri_count := 0
 	var quad_count := 0
 	var ngon_count := 0
+	var line_count := 0
 
 	for line in obj_text.split("\n"):
 		line = line.strip_edges()
@@ -98,7 +100,37 @@ static func parse(obj_text: String) -> MeshData:
 				4: quad_count += 1
 				_: ngon_count += 1
 
-	if raw_vertices.is_empty() or parsed_faces.is_empty():
+		elif line.begins_with("l "):
+			var parts := line.split(" ", false)
+
+			var line_indices := PackedInt32Array()
+			for i in range(1, parts.size()):
+				var token := parts[i]
+				var first := token.split("/")[0]
+				if first.is_empty():
+					continue
+				var v_idx := int(first)
+				if v_idx < 0:
+					v_idx = raw_vertices.size() + v_idx + 1
+				line_indices.append(v_idx - 1)
+
+			# Need at least 2 vertices to form an edge
+			if line_indices.size() < 2:
+				continue
+
+			# Emit consecutive pairs
+			for i in range(line_indices.size() - 1):
+				var pair := PackedInt32Array()
+				pair.append(line_indices[i])
+				pair.append(line_indices[i + 1])
+				parsed_free_edges.append(pair)
+				line_count += 1
+
+	if raw_vertices.is_empty():
+		push_warning("OBJParser: No vertices found in file")
+		return null
+
+	if parsed_faces.is_empty() and parsed_free_edges.is_empty():
 		push_warning("OBJParser: No geometry found in file")
 		return null
 
@@ -108,6 +140,7 @@ static func parse(obj_text: String) -> MeshData:
 	var md := MeshData.new()
 	md.vertices = raw_vertices
 	md.faces = parsed_faces
+	md.free_edges = parsed_free_edges
 	md.source_format = "obj"
 
 	if has_normals:
@@ -118,8 +151,8 @@ static func parse(obj_text: String) -> MeshData:
 		md.uvs = raw_uvs
 		md.face_uv_indices = parsed_face_uv_indices
 
-	print("OBJParser: Loaded %d vertices, %d tris, %d quads, %d ngons (topology preserved)" % [
-		raw_vertices.size(), tri_count, quad_count, ngon_count
+	print("OBJParser: Loaded %d vertices, %d tris, %d quads, %d ngons, %d free edges (topology preserved)" % [
+		raw_vertices.size(), tri_count, quad_count, ngon_count, line_count
 	])
 
 	return md

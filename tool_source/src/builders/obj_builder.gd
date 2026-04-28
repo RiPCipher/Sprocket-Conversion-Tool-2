@@ -131,4 +131,14 @@ static func build(md: MeshData, name_override: String = "") -> String:
 				uv_counter += 1
 			lines.append(" ".join(tokens))
 
+	# ======================== #
+	# Free edges               #
+	# ======================== #
+	for pair in md.free_edges:
+		if pair.size() < 2:
+			continue
+		var v1 := pair[0] + 1
+		var v2 := pair[1] + 1
+		lines.append("l %d %d" % [v1, v2])
+
 	return "\n".join(lines) + "\n"

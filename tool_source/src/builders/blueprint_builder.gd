@@ -34,7 +34,7 @@ static func build(md: MeshData, name_override: String = "") -> String:
 		edges = md.metadata["edges"]
 		edge_flags = md.metadata["edgeFlags"]
 	else:
-		var edge_result := _build_edges_from_faces(md.faces)
+		var edge_result := _build_edges_from_faces(md.faces, md.free_edges)
 		edges = edge_result[0]
 		edge_flags = edge_result[1]
 
@@ -153,7 +153,7 @@ static func build(md: MeshData, name_override: String = "") -> String:
 	out.append("    ]")
 	out.append("  },")
 
-	# --- Rivets ---
+	# Rivets
 	out.append('  "rivets": {')
 	out.append('    "profiles": [')
 
@@ -218,11 +218,15 @@ static func _append_int_array(out: PackedStringArray, arr: Array, indent: String
 # ======================== #
 # Edge generation          #
 # ======================== #
-static func _build_edges_from_faces(faces: Array[PackedInt32Array]) -> Array:
+static func _build_edges_from_faces(
+	faces: Array[PackedInt32Array],
+	free_edges: Array[PackedInt32Array] = []
+) -> Array:
 	var edge_set := {}
 	var edges: Array = []
 	var flags: Array = []
 
+	# Edges from face perimeters
 	for face in faces:
 		var n := face.size()
 		for i in range(n):
@@ -242,6 +246,28 @@ static func _build_edges_from_faces(faces: Array[PackedInt32Array]) -> Array:
 				edges.append(key_a)
 				edges.append(key_b)
 				flags.append(0)
+
+	# Free edges
+	for pair in free_edges:
+		if pair.size() < 2:
+			continue
+		var v1 := pair[0]
+		var v2 := pair[1]
+		if v1 == v2:
+			continue
+
+		var key_a := v1
+		var key_b := v2
+		if v1 > v2:
+			key_a = v2
+			key_b = v1
+
+		var key := "%d_%d" % [key_a, key_b]
+		if not edge_set.has(key):
+			edge_set[key] = true
+			edges.append(key_a)
+			edges.append(key_b)
+			flags.append(0)
 
 	return [edges, flags]
 

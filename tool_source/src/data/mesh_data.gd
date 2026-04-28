@@ -7,6 +7,11 @@ extends RefCounted
 var vertices: PackedVector3Array = PackedVector3Array()
 var faces: Array[PackedInt32Array] = []
 
+# ============ #
+# Free edges   #
+# ============ #
+var free_edges: Array[PackedInt32Array] = []
+
 # ============#
 # attributes  #
 # =========== #
@@ -56,6 +61,10 @@ func get_ngon_count() -> int:
 		if face.size() > 4:
 			count += 1
 	return count
+
+
+func get_free_edge_count() -> int:
+	return free_edges.size()
 
 
 # ========= #

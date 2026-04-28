@@ -415,6 +415,27 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
+[node name="4_28_26" type="VBoxContainer" parent="Pages/Changes/ScrollContainer/VBoxContainer" unique_id=1975315855]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+alignment = 1
+
+[node name="Label" type="Label" parent="Pages/Changes/ScrollContainer/VBoxContainer/4_28_26" unique_id=2059128114]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.73150903, 0.3796619, 0.18134731, 1)
+theme_override_fonts/font = ExtResource("6_ya4ey")
+theme_override_font_sizes/font_size = 50
+text = "4/28/2026"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Pages/Changes/ScrollContainer/VBoxContainer/4_28_26" unique_id=995884152]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_choun")
+theme_override_font_sizes/font_size = 19
+text = "- Resolved issue that prevented edges from converting when
+  they were not connected to a face"
+
 [node name="2_27_26" type="VBoxContainer" parent="Pages/Changes/ScrollContainer/VBoxContainer" unique_id=666555047]
 layout_mode = 2
 size_flags_horizontal = 6

@@ -88,15 +88,52 @@ static func parse(blueprint_text: String) -> MeshData:
 		push_warning("BlueprintParser: No valid faces found")
 		return null
 
+	# ============================== #
+	# free edges                     #
+	# ============================== #
+	var parsed_free_edges: Array[PackedInt32Array] = []
+	if mesh_block.has("edges"):
+		var raw_edges: Array = mesh_block["edges"]
+
+		# Build set of face-edge keys
+		var face_edge_set := {}
+		for face_indices in parsed_faces:
+			var n := face_indices.size()
+			for i in range(n):
+				var a := face_indices[i]
+				var b := face_indices[(i + 1) % n]
+				var key_a := a
+				var key_b := b
+				if a > b:
+					key_a = b
+					key_b = a
+				face_edge_set["%d_%d" % [key_a, key_b]] = true
+
+		# Walk blueprint edges in pairs; flag any not covered by a face
+		for i in range(0, raw_edges.size() - 1, 2):
+			var v1 := int(raw_edges[i])
+			var v2 := int(raw_edges[i + 1])
+			var key_a := v1
+			var key_b := v2
+			if v1 > v2:
+				key_a = v2
+				key_b = v1
+			var key := "%d_%d" % [key_a, key_b]
+			if not face_edge_set.has(key):
+				var pair := PackedInt32Array()
+				pair.append(v1)
+				pair.append(v2)
+				parsed_free_edges.append(pair)
+
 	# ======================== #
 	# Assemble MeshData        #
 	# ======================== #
 	var md := MeshData.new()
 	md.vertices = verts
 	md.faces = parsed_faces
+	md.free_edges = parsed_free_edges
 	md.source_format = "blueprint"
 
-	# Store everything needed for faithful blueprint rebuild
 	md.metadata["name"] = data.get("name", "")
 	md.metadata["smoothAngle"] = data.get("smoothAngle", 0)
 	md.metadata["gridSize"] = data.get("gridSize", 1)
@@ -105,18 +142,16 @@ static func parse(blueprint_text: String) -> MeshData:
 	md.metadata["mesh_minor_version"] = mesh_block.get("minorVersion", 3)
 	md.metadata["face_extras"] = face_extras
 
-	# Preserve edges/edgeFlags
 	if mesh_block.has("edges"):
 		md.metadata["edges"] = mesh_block["edges"]
 	if mesh_block.has("edgeFlags"):
 		md.metadata["edgeFlags"] = mesh_block["edgeFlags"]
 
-	# Preserve rivets section
 	if data.has("rivets"):
 		md.metadata["rivets"] = data["rivets"]
 
-	print("BlueprintParser: Loaded %d vertices, %d tris, %d quads (topology preserved)" % [
-		verts.size(), tri_count, quad_count
+	print("BlueprintParser: Loaded %d vertices, %d tris, %d quads, %d free edges (topology preserved)" % [
+		verts.size(), tri_count, quad_count, parsed_free_edges.size()
 	])
 
 	return md
